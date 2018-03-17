@@ -4,12 +4,14 @@ import _ from 'lodash';
 export class Login extends Component {
   constructor(){
     super()
-    this.state = {email: 'example@yopmail.com', password: '123456789', name: 'example' }
+    this.state = {email: '', password: '', name: '' }
     this.changeName = this.changeName.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.state.data = [{email: 'examplesss@yopmail.com', password: '123456789sss', name: 'exampl' }]
+    this.editEntry = this.editEntry.bind(this);
+    this.deleteEntry = this.deleteEntry.bind(this);
+    this.state.data = []
   }
   changeName(e){
     this.setState({name: e.target.value});
@@ -25,8 +27,20 @@ export class Login extends Component {
 
   submitForm(e){
     e.preventDefault();
-    this.state.data.push({name: this.state.name, password: this.state.password, email: this.state.email});
+    let record_id = Date.now()
+    this.state.data.push({id: record_id, name: this.state.name, password: this.state.password, email: this.state.email});
+    this.setState({data: this.state.data, name: '', email: '', password: ''});
+  }
+
+  deleteEntry(record_id){
+    _.remove(this.state.data, function(n) {
+      return n.id == record_id;
+    });
     this.setState({data: this.state.data});
+  }
+
+  editEntry(record_id){
+    // alert("edit")
   }
 
   render() {
@@ -67,6 +81,7 @@ export class Login extends Component {
           <table className="table">
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
@@ -75,9 +90,12 @@ export class Login extends Component {
             <tbody>
               {_.map(this.state.data, data1 => {
                 return (<tr>
+                  <td>{data1.id}</td>
                   <td>{data1.name}</td>
                   <td>{data1.email}</td>
                   <td>{data1.password}</td>
+                  <td><button onClick={()=>this.editEntry(data1.id)}>Edit</button></td>
+                  <td><button onClick={()=>this.deleteEntry(data1.id)}>Delete</button></td>
                 </tr>)
                 })
               }
