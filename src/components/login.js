@@ -12,6 +12,7 @@ export class Login extends Component {
     this.editEntry = this.editEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.state.data = []
+    this.state.editableId = null
   }
   changeName(e){
     this.setState({name: e.target.value});
@@ -28,7 +29,20 @@ export class Login extends Component {
   submitForm(e){
     e.preventDefault();
     let record_id = Date.now()
-    this.state.data.push({id: record_id, name: this.state.name, password: this.state.password, email: this.state.email});
+
+    const editable_id = this.state.editableId
+    if (editable_id) {
+      let record = _.find(this.state.data, (o) => {
+        if (o.id == editable_id) {
+          o.name = this.state.name;
+          o.email = this.state.email;
+          o.password = this.state.password;
+        }
+      });
+    } else {
+      this.state.data.push({id: record_id, name: this.state.name, password: this.state.password, email: this.state.email});
+    }
+
     this.setState({data: this.state.data, name: '', email: '', password: ''});
   }
 
@@ -40,7 +54,9 @@ export class Login extends Component {
   }
 
   editEntry(record_id){
-    // alert("edit")
+    this.setState({editableId: record_id});
+    let record = _.find(this.state.data, function(o) { return o.id === record_id });
+    this.setState({name: record.name, email: record.email, password: record.password});
   }
 
   render() {
