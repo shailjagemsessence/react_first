@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Form from './Form' ;
+import AddMoreDetails from './AddMoreDetails';
 import _ from 'lodash';
 
-export class Login extends Component {
+class SignUp extends React.Component {
   constructor(){
     super()
-    this.state = {email: '', password: '', name: '' }
+    this.state = {email: '', password: '', name: '' , show_userdetail_form: false, title: 'Show'}
     this.changeName = this.changeName.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.editEntry = this.editEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
+    this.UserInformation = this.UserInformation.bind(this);
     this.state.data = []
     this.state.editableId = null
   }
@@ -42,7 +45,6 @@ export class Login extends Component {
     } else {
       this.state.data.push({id: record_id, name: this.state.name, password: this.state.password, email: this.state.email});
     }
-
     this.setState({data: this.state.data, name: '', email: '', password: ''});
   }
 
@@ -59,40 +61,28 @@ export class Login extends Component {
     this.setState({name: record.name, email: record.email, password: record.password});
   }
 
+  UserInformation(){
+    this.setState({show_userdetail_form: !this.state.show_userdetail_form});
+    if(this.state.show_userdetail_form){
+      this.setState({ title: "Hide" });
+    }
+    else{
+      this.setState({ title: "Show" });
+    }
+  }
+
   render() {
     return (
       <div>
-        name: {this.state.name} <br/>
-        email: {this.state.email} <br/>
-        password: {this.state.password} <br/>
-        <br/>
-        <br/>
-        <form action="" >
-          <div className="container">
-            <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr/>
-
-            <label ><b>Name</b></label>
-            <input type="text" placeholder="Enter Name" name="name" value = {this.state.name} onChange={this.changeName} /> <br/>
-
-            <label ><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" value={this.state.email} onChange={this.changeEmail}/> <br/>
-
-            <label ><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" value={this.state.password} onChange={this.changePassword}/><br/>
-
-            <label htmlFor="psw-repeat"><b>Repeat Password</b></label>
-            <input type="text" placeholder="Repeat Password" name="psw-repeat" value={this.state.password}/><br/>
-            <br/>
-
-
-            <div className="clearfix">
-              <button type="submit" className="signupbtn" onClick={this.submitForm}>Sign Up</button>
-            </div>
-          </div>
-        </form>
-
+        <Form
+          email={this.state.email}
+          name={this.state.name}
+          password={this.state.password}
+          changeName={this.changeName}
+          changeEmail={this.changeEmail}
+          changePassword={this.changePassword}
+          submitForm={this.submitForm}
+        />
         <div className="container">
           <table className="table">
             <thead>
@@ -112,14 +102,20 @@ export class Login extends Component {
                   <td>{data1.password}</td>
                   <td><button onClick={()=>this.editEntry(data1.id)}>Edit</button></td>
                   <td><button onClick={()=>this.deleteEntry(data1.id)}>Delete</button></td>
+                  <td><button onClick={()=>this.UserInformation()}>{this.state.title}</button></td>
                 </tr>)
                 })
               }
             </tbody>
           </table>
+          <AddMoreDetails
+            name={this.state.name}  show_userdetail_form={this.state.show_userdetail_form}
+          />
         </div>
 
       </div>
     );
   }
 }
+
+export default SignUp;
