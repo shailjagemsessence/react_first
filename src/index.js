@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import SignUp from './components/SignUp';
 import registerServiceWorker from './registerServiceWorker';
-
+import 'bootstrap/dist/css/bootstrap.css';
 ReactDOM.render(<SignUp />, document.getElementById('root'));
 registerServiceWorker();

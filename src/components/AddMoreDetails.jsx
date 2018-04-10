@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 class AddMoreDetails extends React.Component {
   constructor(){
@@ -6,12 +7,17 @@ class AddMoreDetails extends React.Component {
     this.state = {address: '', number: ''}
     this.changeAddress = this.changeAddress.bind(this);
     this.changeNumber = this.changeNumber.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.state.data = []
   }
   changeAddress(e){
     this.setState({address: e.target.value});
   }
   changeNumber(e){
     this.setState({number: e.target.value});
+  }
+  submitForm(){
+    this.state.data.push({address: this.state.address, number: this.state.number});
   }
   render() {
     if(this.props.show_userdetail_form == false){
@@ -22,9 +28,9 @@ class AddMoreDetails extends React.Component {
       <h2>{this.props.name}</h2>
         <br/>
         <br/>
-        <form action="" >
+        <form>
           <div className="container">
-            <h1>Add User Details</h1>
+            <h3>Add User Details</h3>
             <hr/>
 
             <label><b>Address</b></label>
@@ -36,9 +42,24 @@ class AddMoreDetails extends React.Component {
 
             <div className="clearfix">
               <button type="submit" className="signupbtn" onClick={this.submitForm}>Sign Up</button>
+              <button type="submit" onClick={this.props.UserInformation}>Hide</button>
             </div>
           </div>
         </form>
+        <div className="container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <td>{this.state.data.address}</td>
+              <td>{this.state.data.number}</td>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

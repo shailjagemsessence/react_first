@@ -1,12 +1,13 @@
 import React from 'react';
 import Form from './Form' ;
 import AddMoreDetails from './AddMoreDetails';
+import ShowDetailForm from './ShowDetailForm';
 import _ from 'lodash';
 
 class SignUp extends React.Component {
   constructor(){
     super()
-    this.state = {email: '', password: '', name: '' , show_userdetail_form: false, title: 'Show'}
+    this.state = {email: '', password: '', name: '' , show_userdetail_form: false}
     this.changeName = this.changeName.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
     this.changePassword = this.changePassword.bind(this);
@@ -14,6 +15,7 @@ class SignUp extends React.Component {
     this.editEntry = this.editEntry.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.UserInformation = this.UserInformation.bind(this);
+    this.ShowAddress = this.ShowAddress.bind(this);
     this.state.data = []
     this.state.editableId = null
   }
@@ -63,14 +65,11 @@ class SignUp extends React.Component {
 
   UserInformation(){
     this.setState({show_userdetail_form: !this.state.show_userdetail_form});
-    if(this.state.show_userdetail_form){
-      this.setState({ title: "Hide" });
-    }
-    else{
-      this.setState({ title: "Show" });
-    }
   }
 
+  ShowAddress(){
+    
+  }
   render() {
     return (
       <div>
@@ -102,14 +101,17 @@ class SignUp extends React.Component {
                   <td>{data1.password}</td>
                   <td><button onClick={()=>this.editEntry(data1.id)}>Edit</button></td>
                   <td><button onClick={()=>this.deleteEntry(data1.id)}>Delete</button></td>
-                  <td><button onClick={()=>this.UserInformation()}>{this.state.title}</button></td>
+                  <td><button onClick={()=>this.UserInformation()}>Add Address</button></td>
+                  <td><button onClick={()=>this.ShowAddress()}>Show Address</button></td>
                 </tr>)
                 })
               }
             </tbody>
           </table>
           <AddMoreDetails
-            name={this.state.name}  show_userdetail_form={this.state.show_userdetail_form}
+            name={this.state.name}
+            show_userdetail_form={this.state.show_userdetail_form}
+            UserInformation={this.UserInformation}
           />
         </div>
 
