@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Form = (props) => (
-  <div class="container">
+  <div className="container">
     <h2>Sign Up</h2>
-    <form class="form-horizontal" action="" >
-      <div class="form-group">
-        <label class="control-label col-md-4"><b>Name</b></label>
-        <div class="col-md-8">
+    <form className="form-horizontal" action="" >
+      <div className="form-group">
+        <label className="control-label col-md-4"><b>Name</b></label>
+        <div className="col-md-8">
           <input
             type="text"
             placeholder="Enter Name"
@@ -17,9 +17,9 @@ const Form = (props) => (
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label col-md-4"><b>Email</b></label>
-        <div class="col-sm-8">
+      <div className="form-group">
+        <label className="control-label col-md-4"><b>Email</b></label>
+        <div className="col-sm-8">
           <input
             type="text"
             placeholder="Enter Email"
@@ -30,9 +30,9 @@ const Form = (props) => (
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label col-md-4"><b>Password</b></label>
-        <div class="col-md-8">
+      <div className="form-group">
+        <label className="control-label col-md-4"><b>Password</b></label>
+        <div className="col-md-8">
           <input
             type="password"
             placeholder="Enter Password"
@@ -43,9 +43,9 @@ const Form = (props) => (
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label col-md-4" htmlFor="psw-repeat"><b>Repeat Password</b></label>
-        <div class="col-md-8">
+      <div className="form-group">
+        <label className="control-label col-md-4" htmlFor="psw-repeat"><b>Repeat Password</b></label>
+        <div className="col-md-8">
           <input
             type="text"
             placeholder="Repeat Password"

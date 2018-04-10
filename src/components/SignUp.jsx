@@ -38,7 +38,7 @@ class SignUp extends React.Component {
     const editable_id = this.state.editableId
     if (editable_id) {
       let record = _.find(this.state.data, (o) => {
-        if (o.id == editable_id) {
+        if (o.id === editable_id) {
           o.name = this.state.name;
           o.email = this.state.email;
           o.password = this.state.password;
@@ -52,7 +52,7 @@ class SignUp extends React.Component {
 
   deleteEntry(record_id){
     _.remove(this.state.data, function(n) {
-      return n.id == record_id;
+      return n.id === record_id;
     });
     this.setState({data: this.state.data});
   }
@@ -68,7 +68,7 @@ class SignUp extends React.Component {
   }
 
   ShowAddress(){
-    
+
   }
   render() {
     return (

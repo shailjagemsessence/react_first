@@ -1,4 +1,5 @@
 import React from 'react';
+import ShowDetailForm from './ShowDetailForm';
 import _ from 'lodash';
 
 class AddMoreDetails extends React.Component {
@@ -16,11 +17,13 @@ class AddMoreDetails extends React.Component {
   changeNumber(e){
     this.setState({number: e.target.value});
   }
-  submitForm(){
-    this.state.data.push({address: this.state.address, number: this.state.number});
+  submitForm(e){
+    e.preventDefault();
+    const addressData=[{address: this.state.address, number: this.state.number}]
+    this.setState({data: addressData});
   }
   render() {
-    if(this.props.show_userdetail_form == false){
+    if(this.props.show_userdetail_form === false){
       return null;
     }
     return (
@@ -34,32 +37,43 @@ class AddMoreDetails extends React.Component {
             <hr/>
 
             <label><b>Address</b></label>
-            <input type="text" placeholder="Enter Your Address" name="address" value = {this.state.address} onChange={this.changeAddress} /> <br/>
+            <input
+              type="text"
+              placeholder="Enter Your Address"
+              name="address"
+              value = {this.state.address}
+              onChange={this.changeAddress}
+            />
 
             <label><b>Phone-Num</b></label>
-            <input type="Number" placeholder="Enter MobNum" name="number" value={this.state.number} onChange={this.changeNumber}/> <br/>
-            <br/>
+            <input
+              type="Number"
+              placeholder="Enter Number"
+              name="number"
+              value={this.state.number}
+              onChange={this.changeNumber}
+            />
 
             <div className="clearfix">
-              <button type="submit" className="signupbtn" onClick={this.submitForm}>Sign Up</button>
-              <button type="submit" onClick={this.props.UserInformation}>Hide</button>
+              <button
+                type="submit"
+                className="signupbtn"
+                onClick={this.submitForm}
+              >
+                Sign Up
+              </button>
+              <button
+                type="submit"
+                onClick={this.props.UserInformation}
+              >
+               Hide
+              </button>
             </div>
           </div>
         </form>
-        <div className="container">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Address</th>
-                <th>Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <td>{this.state.data.address}</td>
-              <td>{this.state.data.number}</td>
-            </tbody>
-          </table>
-        </div>
+        <ShowDetailForm
+          data={this.state.data}
+        />
       </div>
     );
   }
